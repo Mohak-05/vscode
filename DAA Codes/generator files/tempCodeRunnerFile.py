@@ -1,0 +1,1 @@
+emp_ids = random.sample(range(1, n+1), n)

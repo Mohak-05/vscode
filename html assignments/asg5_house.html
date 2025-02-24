@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG House</title>
+</head>
+<body>
+    <svg width="400" height="400" style="border:1px solid black">
+        
+        <!-- House base -->
+        <rect x="100" y="150" width="200" height="150" style="fill:lightblue;stroke:black;stroke-width:3" />
+
+        <!-- Roof -->
+        <polygon points="100,150 200,50 300,150" style="fill:orange;stroke:black;stroke-width:3" />
+
+        <!-- Door -->
+        <rect x="175" y="230" width="50" height="70" style="fill:brown;stroke:black;stroke-width:3" />
+
+        <!-- Windows -->
+        <rect x="120" y="180" width="40" height="40" style="fill:yellow;stroke:black;stroke-width:3" />
+        <rect x="240" y="180" width="40" height="40" style="fill:yellow;stroke:black;stroke-width:3" />
+
+        <!-- Window panes -->
+        <line x1="120" y1="200" x2="160" y2="200" style="stroke:black;stroke-width:2" />
+        <line x1="140" y1="180" x2="140" y2="220" style="stroke:black;stroke-width:2" />
+
+        <line x1="240" y1="200" x2="280" y2="200" style="stroke:black;stroke-width:2" />
+        <line x1="260" y1="180" x2="260" y2="220" style="stroke:black;stroke-width:2" />
+
+        <!-- Chimney -->
+        <rect x="220" y="80" width="20" height="50" style="fill:red;stroke:black;stroke-width:3" />
+    </svg>
+</body>
+</html>

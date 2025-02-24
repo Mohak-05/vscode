@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1104 Media Section</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <h3>Audio</h3>
+                <audio controls>
+                    <source src="audio.mp3" type="audio/mpeg">
+                    <source src="audio.ogg" type="audio/ogg">
+                    Your browser does not support the audio element.
+                </audio>
+
+                <h3>Video</h3>
+                <video width="320" height="240" controls poster="images/ass1bg.png">
+                    <source src="video.mp4" type="video/mp4">
+                    <source src="video.ogg" type="video/ogg">
+                    Your browser does not support the video element.
+                </video>
+                <canvas id="laptopCanvas" width="400" height="300"></canvas>
+                <script>
+                    var canvas = document.getElementById('laptopCanvas');
+                    var ctx = canvas.getContext('2d');
+
+                    ctx.fillStyle = 'red';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.fillStyle = 'black';
+                    ctx.fillRect(100, 50, 200, 120);
+
+                    ctx.fillStyle = 'yellow';
+                    ctx.beginPath();
+                    ctx.arc(200, 110, 30, 0, 2 * Math.PI);
+                    ctx.fill();
+
+                    ctx.fillStyle = 'grey';
+                    ctx.fillRect(80, 180, 240, 30);
+                </script>
+
+            </td>
+            <td>
+                <h3>my Home using SVG</h3>
+                <iframe src="asg5_house.html" width="400" height="400" style="border:1px solid black"></iframe>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

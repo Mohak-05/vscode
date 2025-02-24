@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1104</title>
+    <style>
+        .spid{
+            display:flex;
+            justify-content:center;
+        }
+        #sp,#sp2{
+            border-radius:5px;
+            border:5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="spid">
+        <table id="sp" border="2px">
+        </table>
+    </div>
+    <br><br>
+    <div class="spid">
+        
+        <input type="number" id="srch">
+        <button onclick="search()">Search</button><br>
+    </div>
+    <br><br>
+    <div class="spid">
+        <table id="sp2" border="2px">
+        </table>
+    </div>
+</body>
+<script defer>
+    
+    let pdata=[[1,"Alen",39],[2,"Deena",47],[3,"Diana",21],[4,"Jack",54],[5,"Jain",23],[6,"Kelvin",61],[7,"Louis",69],[8,"Rex",49]]
+    for(var i=0;i<pdata.length;i++){
+        for(var j=0;j<pdata.length-i-1;j++){
+            if (pdata[j][2]>pdata[j+1][2]){
+                [pdata[j],pdata[j+1]]=[pdata[j+1],pdata[j]];
+            }
+        }
+    }
+    let wr="<tr><th>P_ID</th><th>Name</th><th>AGE</th></tr>";
+    for(var i=0;i<pdata.length;i++){
+        wr+="<tr><td>"+pdata[i][0]+"</td><td>"+pdata[i][1]+"</td><td>"+pdata[i][2]+"</td></tr>";
+    }
+    document.getElementById("sp").innerHTML=wr;
+    let wr1="<tr><th>P_ID</th><th>Name</th><th>AGE</th><th>Category</th></tr>";
+    for(var i=0;i<pdata.length;i++){
+        let category=(pdata[i][2]>60?"Elder":pdata[i][2]<40?"Adult":"Middle aged");
+        wr1+="<tr><td>"+pdata[i][0]+"</td><td>"+pdata[i][1]+"</td><td>"+pdata[i][2]+"</td><td>"+category+"</td></tr>";
+    }
+    document.getElementById("sp2").innerHTML=wr1;
+    function search(){
+        let v=document.getElementById("srch").value;
+        let ch=0;
+        for(var i=0;i<pdata.length;i++){
+            if (pdata[i][0]==v){
+                alert("patient "+pdata[i][1]);
+                ch=1;
+                break;
+            }
+        }
+        if (ch==0){
+            alert("Patient not found");
+        }
+    }
+    
+</script>
+</html>

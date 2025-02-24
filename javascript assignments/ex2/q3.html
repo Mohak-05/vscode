@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1104</title>
+    <style>
+        .ct2r {
+            text-align:center;
+        }
+        .t2span{
+            display:flex;
+            justify-content:center;
+        }
+        .hidden{
+            visibility:hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="t2span">
+        <table border="2px" >
+            <tr style="text-align:center;">
+                <td colspan="2">
+                    <span style="font-weight:bold;">BMI Calculator</span>
+                    <select>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span style="font-weight:bold">Enter your Weight:</span><br>
+                    <label>(in pounds)</label><input type="text" id="wt">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span style="font-weight:bold">Enter your Height:</span><br>
+                    <label>(feet)</label><input type="text" id="ft"><br><br>
+                    <label>(inches)</label><input type="text" id="in">
+                </td>
+            </tr>
+            <tr style="text-align:center;">
+                <td colspan="2">
+                    <button onclick="fn()">Calculate</button>
+                </td>
+            </tr>
+            <tr style="text-align:center;">
+                <td >
+                    <span style="font-weight:bold">Your<br>BMI</span>
+                </td>
+                <td>
+                    <input readonly type="text" id="res">
+                </td>
+            </tr>
+        </table>
+    </div>
+<div class="t2span">
+    <table border="2px" cellpadding="4px" class="hidden">
+        <tr>
+            <th>Adults</th>
+            <th>Women</th>
+            <th>Men</th>
+        </tr>
+        <tr>
+            <td>Anorexia</td>
+            <td class="ct2r" colspan="2">less than 17.5</td>
+        </tr>
+        <tr>
+            <td>underweight</td>
+            <td class="ct2r">17.51-19.10</td>
+            <td class="ct2r">17.51-20.70</td>
+        </tr>
+        <tr>
+            <th >Ideal-range</th>
+            <th class="ct2r">19.11-25.80</th>
+            <th class="ct2r">20.71-26.40</th>
+        </tr>
+        <tr>
+            <td>Marginally overweight range</td>
+            <td class="ct2r">25.81-27.30</td>
+            <td>26.41-27.80</td>
+        </tr>
+        <tr>
+            <td>Overweight range</td>
+            <td class="ct2r">27.31-32.30</td>
+            <td class="ct2r">27.81-31.10</td>
+        </tr>
+        <tr>
+            <td>Very Overweight or Obese <br>range</td>
+            <td class="ct2r">more than <br>32.30</td>
+            <td class="ct2r">more than <br>31.10</td>
+        </tr>
+    </table>
+</div>
+</body>
+<script>
+    function fn(){
+        let w=parseInt(document.getElementById("wt").value);
+        let f=parseInt(document.getElementById("ft").value);
+        let i=parseInt(document.getElementById("in").value);
+        i+=(f*12);
+        let bmi=(703*w)/(i*i);
+        document.getElementById("res").value=bmi;
+        let t2=document.querySelector(".hidden");
+        t2.classList.remove("hidden")
+
+    }
+</script>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1104</title>
+    <style>
+        h3{
+            margin-left:10px;
+        }
+        .ltext{
+            margin-left:10px;
+        }
+        .rtext{
+            margin-left:25px;
+        }
+        .tbox{
+            border-radius:10px;
+            border:0px solid black;
+        }
+        img{
+            border-radius:50%;
+            height:50px;
+            width:50px;
+        }
+        .prod{
+            display:flex;
+            align-items:center;
+            justify-content:space-evenly
+        }
+        .qty{
+            width:50px;
+            border-radius:10px;
+        }
+        button{
+            width:180px;
+            height:30px;
+            color:white;
+            border:0px;
+            border-radius:5px;
+            background-color:rgb(192, 136, 46);
+        }
+    </style>
+</head>
+<body>
+<div style="display:flex;justify-content:center;">
+    <form style="width:600px;Background-color:rgb(158, 172, 144)">
+        <h1 style="Text-align:center;">Grocery Order Form</h1>
+        <h3>Customer Name</h3>
+        <input class="ltext tbox" type="text" id="fname"><input type="text" class="rtext tbox" id="lname">
+        <br><br><h3>Phone Number</h3>
+        <input type="text" class="ltext tbox" id="num1"><input type="text" id="num2" class="tbox rtext">
+        <br><br><h3>Email</h3>
+        <input type="email" class="ltext tbox" id="email">
+        <br><br>
+        <hr style="background-color:black;width:550px;border-bottom:2px;border:2px solid black;">
+        <br><br>
+        <h2 style="margin-left:20px;">Products</h2>
+        <div class="prod">
+            <img src="apple.jpeg">
+            <label> <input type="checkbox" id="apchk">Apple</label>
+            <span>$10</span>
+            <label><input type="number" class="qty" id="apqty">Kg</label>
+        </div>
+        <br>
+        <div class="prod">
+            <img src="banana.webp">
+            <label> <input type="checkbox" id="bnchk">Banana</label>
+            <span>$5</span>
+            <label><input type="number" class="qty" id="bnqty">Kg</label>
+        </div>
+        <br>
+        <div class="prod">
+            <img src="avacado.jpeg">
+            <label> <input type="checkbox" id="avchk">Avacado</label>
+            <span>$7</span>
+            <label><input type="number" class="qty" id="avqty">Kg</label>
+        </div>
+        <br>
+        <div class="prod">
+            <button type="submit" onclick="fn(event)">Submit</button>
+        </div>
+        <br>
+    </form>
+    <br>
+    <br>
+</div>
+</body>
+<script>
+    function fn(event) {
+        event.preventDefault(); 
+
+        let data = {
+            fname: document.getElementById("fname").value,
+            lname: document.getElementById("lname").value,
+            num1: document.getElementById("num1").value,
+            num2: document.getElementById("num2").value,
+            email: document.getElementById("email").value,
+            products: []
+        };
+
+        if (document.getElementById("apchk").checked) {
+            data.products.push({ name: "Apple", price: 10, qty: parseFloat(document.getElementById("apqty").value) || 0 });
+        }
+        if (document.getElementById("bnchk").checked) {
+            data.products.push({ name: "Banana", price: 5, qty: parseFloat(document.getElementById("bnqty").value) || 0 });
+        }
+        if (document.getElementById("avchk").checked) {
+            data.products.push({ name: "Avocado", price: 7, qty: parseFloat(document.getElementById("avqty").value) || 0 });
+        }
+
+        localStorage.setItem("groceryData", JSON.stringify(data));
+        window.location.href = "receipt.html";
+    }
+</script>
+</html>

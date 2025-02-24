@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt 23BCE1104</title>
+</head>
+<body>
+    <h1>Grocery Receipt</h1>
+    <div id="receipt"></div>
+
+    <script>
+        let data = JSON.parse(localStorage.getItem("groceryData"));
+        if (data) {
+            let receiptHTML = `<p><strong>Name:</strong> ${data.fname} ${data.lname}</p>
+                               <p><strong>Phone:</strong> ${data.num1}-${data.num2}</p>
+                               <p><strong>Email:</strong> ${data.email}</p>
+                               <h2>Products:</h2><ul>`;
+            data.products.forEach(product => {
+                receiptHTML += `<li>${product.name} - ${product.qty} Kg - $${(product.price * product.qty).toFixed(2)}</li>`;
+            });
+            receiptHTML += "</ul>";
+            document.getElementById("receipt").innerHTML = receiptHTML;
+        } else {
+            document.getElementById("receipt").innerHTML = "<p>No data available</p>";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+body{
+    background:goldenrod url("images/pets.jpg") no-repeat top;
+}
+#hpet{
+    font-size:50px;
+    background:linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color:transparent;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    position: absolute;
+    top: 3%;
+    left: 50%;  
+}
+.ball{
+    position: absolute;
+    top: 47%;
+    left: 80%;  
+    animation:bounce 1.75s linear infinite normal;
+}
+@keyframes bounce{
+    0% { transform: translate(0, 0) scale(1) ; }
+    50% { transform: translate(0,-400px) scale(3) ; }
+    100% { transform: translate(0, 0) scale(1) ; }
+}
+.col{
+    margin:150px 650px 0 130px;
+    color:indigo;
+    font-size:30px;
+    columns:20px 2;
+    line-height:30pt;
+}
+img{
+    position:absolute;
+    top:40%;
+    left:70%
+    
+}

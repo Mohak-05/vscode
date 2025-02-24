@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1104</title>
+    <style>
+        div{
+            display:flex;
+            justify-content:center;
+        }
+        td{
+            text-align:center;
+            border:1px solid rgb(126, 126, 126);
+        }
+        table{
+            border:2px solid black;
+        }
+    </style>
+    
+</head>
+<body>
+    <div>
+    <p style="font-size:10px;">Number of HOT days: </p>
+    <input type="number" id="ht"><br>
+    <p style="font-size:10px;">Number of PLEASANT days: </p>
+    <input type="number" id="pl"><br>
+    <p style="font-size:10px;">Number of COLD days: </p>
+    <input type="number" id="cl"><br>
+    </div>  
+    <div>
+    <table id="tb">
+    </table>
+    </div>
+</body>
+<script>
+    let disp=document.getElementById("tb");
+    disp.innerHTML="";
+    let tf="<tr><th>Temperature</th><th>Category</th></tr>";
+    arr=[55,62,68,74,59,45,41,58,60,67,65,78,82,88,91,92,90,93,87,80,78,79,72,68,61,59,55,65]
+    n=arr.length;
+    let hot=0,cold=0,pleasant=0;
+    for(i=0;i<n;i++){
+        tf+="<tr><td>"+arr[i]+"</td>";
+        if(arr[i]>=85){
+            hot++;
+            tf+="<td>"+"HOT"+"</td>";
+        }
+        else if(arr[i]<60){
+            cold++;
+            tf+="<td>"+"COLD"+"</td>";
+        }
+        else{   
+            pleasant++;
+            tf+="<td>"+"PLEASANT"+"</td>";
+        }
+        tf+="</tr>"
+    }
+    disp.innerHTML=tf;
+    document.getElementById("ht").value=hot;
+    document.getElementById("pl").value=pleasant;
+    document.getElementById("cl").value=cold;   
+</script>
+</html>
