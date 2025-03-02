@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" readonly id="time">
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="reset()">Reset</button><br><br>
+    <label>Date(format:[yyyy-mm-dd])</label><input type="text" id="date"><br>
+    <label>age:</label><input type="text" id="res" readonly>
+</body>
+<script>
+    var timer;
+    var sec=0,min=0,hr=0;
+    var running=false;
+    var dt=new Date();
+    document.getElementById("res").addEventListener("mouseover",function(){ 
+        var dt2=new Date(document.getElementById("date").value);
+        var diff=(dt-dt2)/(1000*60*60*24*365.25);
+        document.getElementById("res").value=parseInt(diff)+" years";
+    });
+
+    document.getElementById("res").addEventListener("mouseout",function(){ 
+        document.getElementById("res").value="";
+    });
+
+    function updatetime(){
+        sec++;
+        if (sec==60){
+            sec=0;
+            min++;
+            if(min==60){
+                min=0;
+                hr++;
+            }
+        }
+        document.getElementById("time").value=
+        (hr<10?"0"+hr:hr)+":"+
+        (min<10?"0"+min:min)+":"+
+        (sec<10?"0"+sec:sec);
+    }
+
+    function start(){
+        if(!running){
+            timer=setInterval(updatetime,1000);
+            running=true;
+        }
+    }
+
+    function stop(){
+        running=false;
+        timer=clearInterval(timer);
+    }
+
+    function reset(){
+        running=false;
+        timer=clearInterval(timer);
+        document.getElementById("time").value="00:00:00";
+        sec=0;min=0;hr=0;
+    }
+</script>
+</html>

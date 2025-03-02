@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23bce1104</title>
+</head>
+<style>
+    .b1{
+        background-color:red;
+    }
+</style>
+<body>
+        <table id="tb" border="1">
+            <tr>
+                <th>Heading1</th>
+                <th>Heading2</th>
+                <th>Heading3</th>
+            </tr>
+        </table>
+        <div id="d">
+    
+        </div><br>
+        <div id="d2">
+    
+        </div><br>
+        <div id="d3">
+    
+        </div>
+</body>
+<script>
+    function createRow(){
+        var table=document.getElementById("tb");
+        var row=table.insertRow();
+        var cell1=row.insertCell(0);
+        var cell2=row.insertCell(1);
+        var cell3=row.insertCell(2);
+        cell1.textContent="cell1";
+        cell2.textContent="cell2";
+        cell3.textContent="cell3";
+    }
+    function deleteRow(){
+        document.getElementById("tb").deleteRow(-1);
+    }
+    
+    let but1 = document.createElement("button");
+    but1.setAttribute("class","b1");
+    but1.setAttribute("onclick","createRow()");
+    but1.textContent="createRow";
+    document.getElementById("d").appendChild(but1);
+
+    let but2 = document.createElement("button");
+    but2.setAttribute("class","b2");
+    but2.setAttribute("onclick","deleteRow()");
+    but2.textContent="deleteRow";
+    document.getElementById("d").appendChild(but2);
+
+    let tb = document.createElement("input");
+    tb.setAttribute("type","text");
+    document.getElementById("d").appendChild(tb);
+
+    but1.addEventListener("mouseover", function() {
+    but1.style.backgroundColor = "green";
+    });
+    but1.addEventListener("mouseout", function() {
+    but1.style.backgroundColor = "red";
+    });
+
+    tb.addEventListener("blur", function() {
+    tb.style.backgroundColor = "green";
+    });
+    tb.addEventListener("focus", function() {
+    tb.style.backgroundColor = "yellow";
+    tb.value="greetings";
+    });
+
+    let inputField = document.createElement("input");
+    inputField.setAttribute("type", "text");
+    inputField.setAttribute("id", "textInput");
+
+    let addButton = document.createElement("button");
+    addButton.textContent = "Add to List";
+
+    let ul = document.createElement("ul");
+
+    addButton.addEventListener("dblclick", function() {
+        if (inputField.value.trim() !== "") {
+            let li = document.createElement("li");
+            li.textContent = inputField.value;
+            ul.appendChild(li);
+            inputField.value = ""; 
+        }
+    });
+
+    document.getElementById("d2").appendChild(inputField);
+    document.getElementById("d2").appendChild(addButton);
+    document.getElementById("d2").appendChild(ul);
+
+    let keyInput = document.createElement("input");
+    keyInput.setAttribute("type", "text");
+    keyInput.setAttribute("id", "keyInput");
+
+    let counterInput = document.createElement("input");
+    counterInput.setAttribute("type", "text");
+    counterInput.setAttribute("id", "counter");
+    counterInput.setAttribute("readonly", "true"); 
+
+    let keyPressCount = 0;
+
+    keyInput.addEventListener("keydown", function() {
+        keyPressCount++;
+        counterInput.value = keyPressCount;
+    });
+
+    document.getElementById("d3").appendChild(document.createElement("br"));
+    document.getElementById("d3").appendChild(keyInput);
+    document.getElementById("d3").appendChild(counterInput);
+
+</script>
+</html>
