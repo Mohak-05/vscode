@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1104</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 600px;
+            border: 2px solid black;
+            padding: 20px;
+            margin: auto;
+        }
+        label {
+            display: inline-block;
+            width: 120px;
+        }
+        input, textarea, select {
+            width: 200px;
+            border-radius: 5px;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+        .radio-group label, .checkbox-group label {
+            width: auto;
+            margin-right: 15px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        #time {
+            float: right;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+        }
+        button {
+            margin-right: 10px;
+            padding: 5px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .summary {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body onload="updateTime()">
+
+<div class="container">
+    <h2>Test JavaScript Form Validation</h2>
+    <div id="time"></div>
+    <form id="myForm">
+        <label>Name *</label> 
+        <input type="text" id="name"> 
+        <span class="error" id="nameError"></span>
+        <br><br>
+
+        <label>Address *</label>
+        <textarea id="address"></textarea>
+        <span class="error" id="addressError"></span>
+        <br><br>
+
+        <label>Zip Code *</label> 
+        <input type="text" id="zip">
+        <span class="error" id="zipError"></span>
+        <br><br>
+
+        <label>Country *</label>
+        <select id="country">
+            <option value="">Please select...</option>
+            <option value="India">India</option>
+            <option value="USA">USA</option>
+            <option value="UK">UK</option>
+        </select>
+        <span class="error" id="countryError"></span>
+        <br><br>
+
+        <label>Gender *</label>
+        <span class="radio-group">
+            <label><input type="radio" name="gender" value="Male"> Male</label>
+            <label><input type="radio" name="gender" value="Female"> Female</label>
+        </span>
+        <span class="error" id="genderError"></span>
+        <br><br>
+
+        <label>Preferences *</label>
+        <span class="checkbox-group">
+            <label><input type="checkbox" name="preferences" value="Red"> Red</label>
+            <label><input type="checkbox" name="preferences" value="Green"> Green</label>
+            <label><input type="checkbox" name="preferences" value="Blue"> Blue</label>
+        </span>
+        <span class="error" id="preferencesError"></span>
+        <br><br>
+
+        <label>Phone *</label> 
+        <input type="text" id="phone">
+        <span class="error" id="phoneError"></span>
+        <br><br>
+
+        <label>Email *</label>
+        <input type="text" id="email">
+        <span class="error" id="emailError"></span>
+        <br><br>
+
+        <label>Password *</label> 
+        <input type="password" id="password">
+        <span class="error" id="passwordError"></span>
+        <br><br>
+
+        <label>Verify Password *</label>
+        <input type="password" id="confirmPassword">
+        <span class="error" id="confirmPasswordError"></span>
+        <br><br>
+
+        <label>PAN No *</label>
+        <input type="text" id="pan">
+        <span class="error" id="panError"></span>
+        <br><br>
+
+        <button type="button" onclick="validateForm()">SEND</button>
+        <button type="reset">CLEAR</button>
+        <button type="button" onclick="printForm()">PRINT</button>
+    </form>
+
+    <div id="formSummary" class="summary"></div>
+</div>
+
+<script>
+    function updateTime() {
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById("time").innerText = `Time: ${now.toLocaleTimeString()}`;
+        }, 1000);
+    }
+
+    function validateForm() {
+        let isValid = true;
+
+        function showError(id, message) {
+            document.getElementById(id).innerText = message;
+            isValid = false;
+        }
+
+        function clearError(id) {
+            document.getElementById(id).innerText = "";
+        }
+
+        let name = document.getElementById("name").value;
+        if (!name) {
+            showError("nameError", "Name is required");
+            document.getElementById("name").focus();
+            return false;
+        } else if(name.length > 15) {
+            showError("nameError", "Enter a valid name (max 15 chars)");
+            document.getElementById("name").focus();
+            return false;
+        } else {
+            clearError("nameError");
+        }
+
+        let address = document.getElementById("address").value;
+        if (!address) {
+            showError("addressError", "Address is required");
+            document.getElementById("address").focus();
+            return false;
+        } else {
+            clearError("addressError");
+        }
+
+        let zip = document.getElementById("zip").value;
+        if (!zip) {
+            showError("zipError", "Zip Code is required");
+            document.getElementById("zip").focus();
+            return false;
+        } else if (!zip.match(/^\d{6}$/)) {
+            showError("zipError", "Enter a valid 6-digit Zip Code");
+            document.getElementById("zip").focus();
+            return false;
+        } else {
+            clearError("zipError");
+        }
+
+        let country = document.getElementById("country").value;
+        if (!country) {
+            showError("countryError", "Select a country");
+            document.getElementById("country").focus();
+            return false;
+        } else {
+            clearError("countryError");
+        }
+
+        let gender = document.querySelector('input[name="gender"]:checked');
+        if (!gender) {
+            showError("genderError", "Select gender");
+            return false;
+        } else {
+            clearError("genderError");
+        }
+
+        let preferences = document.querySelectorAll('input[name="preferences"]:checked');
+        if (preferences.length === 0) {
+            showError("preferencesError", "Select at least one preference");
+            return false;
+        } else {
+            clearError("preferencesError");
+        }
+
+        let phone = document.getElementById("phone").value;
+        if (!phone) {
+            showError("phoneError", "Phone number is required");
+            document.getElementById("phone").focus();
+            return false;
+        } else if (!phone.match(/^\d{10}$/)) {
+            showError("phoneError", "Enter a valid 10-digit phone number");
+            document.getElementById("phone").focus();
+            return false;
+        } else {
+            clearError("phoneError");
+        }
+
+        let email = document.getElementById("email").value;
+        if (!email) {
+            showError("emailError", "Email is required");
+            document.getElementById("email").focus();
+            return false;
+        } else if (!email.match(/^\S+@\S+\.\S+$/)) {
+            showError("emailError", "Enter a valid email");
+            document.getElementById("email").focus();
+            return false;
+        } else {
+            clearError("emailError");
+        }
+
+        let password = document.getElementById("password").value;
+        if (!password) {
+            showError("passwordError", "Password is required");
+            document.getElementById("password").focus();
+            return false;
+        } else if (!password.match(/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\W_]).{8,15}$/)) {
+            showError("passwordError", "Password must be 8-15 chars with number, letter & special char");
+            document.getElementById("password").focus();
+            return false;
+        } else {
+            clearError("passwordError");
+        }
+
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        if (confirmPassword !== password) {
+            showError("confirmPasswordError", "Passwords do not match");
+            document.getElementById("confirmPassword").focus();
+            return false;
+        } else {
+            clearError("confirmPasswordError");
+        }
+
+        let pan = document.getElementById("pan").value;
+        if (!pan) {
+            showError("panError", "PAN number is required");
+            document.getElementById("pan").focus();
+            return false;
+        } else if (!pan.match(/^[A-Z]{5}\d{4}[A-Z]{1}$/)) {
+            showError("panError", "Enter a valid PAN (AAAAA1234A)");
+            document.getElementById("pan").focus();
+            return false;
+        } else {
+            clearError("panError");
+        }
+
+        if (isValid) {
+            displayFormSummary();
+            return true;
+        }
+        
+        return false;
+    }
+
+    function displayFormSummary() {
+        let summary = document.getElementById("formSummary");
+        summary.style.display = "block";
+        
+    
+        let selectedGender = "";
+        let genderRadios = document.getElementsByName("gender");
+        for (let i = 0; i < genderRadios.length; i++) {
+            if (genderRadios[i].checked) {
+                selectedGender = genderRadios[i].value;
+                break;
+            }
+        }
+        
+        let selectedPreferences = [];
+        let preferenceCheckboxes = document.getElementsByName("preferences");
+        for (let i = 0; i < preferenceCheckboxes.length; i++) {
+            if (preferenceCheckboxes[i].checked) {
+                selectedPreferences.push(preferenceCheckboxes[i].value);
+            }
+        }
+        
+        let countrySelect = document.getElementById("country");
+        let selectedCountry = countrySelect.options[countrySelect.selectedIndex].value;
+        
+        summary.innerHTML = `
+            <h3>Form Submission Summary</h3>
+            <p><strong>Name:</strong> ${document.getElementById("name").value}</p>
+            <p><strong>Address:</strong> ${document.getElementById("address").value}</p>
+            <p><strong>Zip Code:</strong> ${document.getElementById("zip").value}</p>
+            <p><strong>Country:</strong> ${selectedCountry}</p>
+            <p><strong>Gender:</strong> ${selectedGender}</p>
+            <p><strong>Preferences:</strong> ${selectedPreferences.join(", ")}</p>
+            <p><strong>Phone:</strong> ${document.getElementById("phone").value}</p>
+            <p><strong>Email:</strong> ${document.getElementById("email").value}</p>
+            <p><strong>PAN:</strong> ${document.getElementById("pan").value}</p>
+        `;
+        
+        alert("Form submitted successfully!");
+    }
+
+    function printForm() {
+        window.print();
+    }
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1104</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            border: 2px solid #333;
+            background-color: #87CEEB;
+        }
+        .container {
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Canvas Scene Drawing</h2>
+        <canvas id="myCanvas" width="800" height="500"></canvas>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const canvas = document.getElementById("myCanvas");
+            const ctx = canvas.getContext("2d");
+            
+            let boatX = 300;
+            let boatDirection = 1;
+            let boatSpeed = 0.5;
+            
+            function drawScene() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = "#87CEEB";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = "#4CAF50";
+                ctx.fillRect(0, 350, canvas.width, 150);
+                
+                ctx.beginPath();
+                ctx.ellipse(400, 400, 200, 70, 0, 0, Math.PI * 2);
+                ctx.fillStyle = "#1E90FF";
+                ctx.fill();
+                ctx.strokeStyle = "#0000CD";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(700, 100, 40, 0, Math.PI * 2);
+                ctx.fillStyle = "#FFD700";
+                ctx.fill();
+                
+                ctx.strokeStyle = "#FFD700";
+                ctx.lineWidth = 3;
+                for(let i = 0; i < 12; i++) {
+                    let angle = i * (Math.PI / 6);
+                    ctx.beginPath();
+                    ctx.moveTo(700 + Math.cos(angle) * 40, 100 + Math.sin(angle) * 40);
+                    ctx.lineTo(700 + Math.cos(angle) * 70, 100 + Math.sin(angle) * 70);
+                    ctx.stroke();
+                }
+                
+                ctx.fillStyle = "#CD853F";
+                ctx.fillRect(100, 250, 120, 100);
+                
+                ctx.beginPath();
+                ctx.moveTo(100, 250);
+                ctx.lineTo(160, 190);
+                ctx.lineTo(220, 250);
+                ctx.closePath();
+                ctx.fillStyle = "#8B4513";
+                ctx.fill();
+                ctx.strokeStyle = "#000";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                ctx.fillStyle = "#4b2504";
+                ctx.fillRect(140, 300, 40, 50);
+                
+                ctx.fillStyle = "#ADD8E6";
+                ctx.fillRect(120, 270, 30, 20);
+                
+                ctx.beginPath();
+                ctx.moveTo(boatX, 390);
+                ctx.bezierCurveTo(boatX + 20, 410, boatX + 80, 410, boatX + 100, 390);
+                ctx.bezierCurveTo(boatX + 120, 380, boatX + 120, 370, boatX + 100, 360);
+                ctx.lineTo(boatX, 360);
+                ctx.closePath();
+                ctx.fillStyle = "#8B4513";
+                ctx.fill();
+                ctx.strokeStyle = "#000";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(boatX + 50, 360);
+                ctx.lineTo(boatX + 50, 320);
+                ctx.lineTo(boatX + 90, 340);
+                ctx.closePath();
+                ctx.fillStyle = "#FFF";
+                ctx.fill();
+                ctx.strokeStyle = "#000";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(500, 380, 20, 0, Math.PI * 2);
+                ctx.fillStyle = "#FFD700";
+                ctx.fill();
+                ctx.strokeStyle = "#000";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(520, 370, 12, 0, Math.PI * 2);
+                ctx.fillStyle = "#FFD700";
+                ctx.fill();
+                ctx.strokeStyle = "#000";
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(525, 367, 2, 0, Math.PI * 2);
+                ctx.fillStyle = "#000";
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.moveTo(532, 370);
+                ctx.lineTo(542, 372);
+                ctx.lineTo(532, 375);
+                ctx.closePath();
+                ctx.fillStyle = "#FF7F00";
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.moveTo(600, 350);
+                ctx.lineTo(600, 300);
+                ctx.strokeStyle = "#006400";
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(600, 330);
+                ctx.bezierCurveTo(585, 325, 580, 315, 590, 310);
+                ctx.bezierCurveTo(600, 305, 605, 315, 600, 330);
+                ctx.fillStyle = "#006400";
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.moveTo(600, 320);
+                ctx.bezierCurveTo(615, 315, 620, 305, 610, 300);
+                ctx.bezierCurveTo(600, 295, 595, 305, 600, 320);
+                ctx.fillStyle = "#006400";
+                ctx.fill();
+                
+                const petalColors = ["#FF69B4", "#FF1493", "#C71585", "#DB7093"];
+                for(let i = 0; i < 8; i++) {
+                    let angle = i * (Math.PI / 4);
+                    let x = 600 + Math.cos(angle) * 15;
+                    let y = 300 + Math.sin(angle) * 15;
+                    
+                    ctx.beginPath();
+                    ctx.ellipse(x, y, 10, 5, angle, 0, Math.PI * 2);
+                    ctx.fillStyle = petalColors[i % petalColors.length];
+                    ctx.fill();
+                }
+                
+                ctx.beginPath();
+                ctx.arc(600, 300, 5, 0, Math.PI * 2);
+                ctx.fillStyle = "#FFD700";
+                ctx.fill();
+                
+                const stonePositions = [
+                    {x: 250, y: 420, r: 5},
+                    {x: 270, y: 430, r: 7},
+                    {x: 290, y: 425, r: 4},
+                    {x: 450, y: 415, r: 6},
+                    {x: 470, y: 425, r: 5},
+                    {x: 490, y: 430, r: 3},
+                    {x: 510, y: 425, r: 4}
+                ];
+                
+                stonePositions.forEach(stone => {
+                    ctx.beginPath();
+                    ctx.arc(stone.x, stone.y, stone.r, 0, Math.PI * 2);
+                    ctx.fillStyle = "#808080";
+                    ctx.fill();
+                    ctx.strokeStyle = "#696969";
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                });
+                
+                ctx.fillStyle = "#000";
+                ctx.font = "12px Arial";
+                ctx.fillText("23BCE1104", 10, 490);
+                
+                boatX += boatSpeed * boatDirection;
+                
+                if (boatX > 450 || boatX < 250) {
+                    boatDirection *= -1;
+                }
+                
+                requestAnimationFrame(drawScene);
+            }
+            
+            drawScene();
+        };
+    </script>
+</body>
+</html>
