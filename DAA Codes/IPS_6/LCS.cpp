@@ -30,7 +30,6 @@ int mem_rec(vector<char> p, vector<char> q,int n, int m,vector<char> & res,vecto
         result= 0;
     }
     else if (p[n-1]==q[m-1]){
-        res.push_back(p[n-1]);
         result= 1+mem_rec(p,q,n-1,m-1,res,memo);
     }
     else{
