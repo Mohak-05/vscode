@@ -1,71 +1,72 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
-bool isInSet(int *set, int size, int value) {
-    for (int i = 0; i < size; i++)
-        if (set[i] == value)
-            return true;
-    return false;
+int checkPresence(int cqueue[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (cqueue[i] == target) return 1;
+    }
+    return 0;
 }
 
 int findLRU(int timestamps[], int size) {
-    int min = timestamps[0], pos = 0;
+    int minIndex = 0;
     for (int i = 1; i < size; i++) {
-        if (timestamps[i] < min) {
-            min = timestamps[i];
-            pos = i;
+        if (timestamps[i] < timestamps[minIndex]) {
+            minIndex = i;
         }
     }
-    return pos;
+    return minIndex;
 }
 
-int pageFaults(int pages[], int n, int capacity) {
-    int set[capacity], timestamps[capacity], setSize = 0, page_faults = 0, time = 0;
+void LRU(int refStrs[], int size, int numFrames) {
+    printf("\nLRU Page Replacement Algorithm :");
+    printf("\n--------------------------------");
 
-    for (int i = 0; i < n; i++) {
-        if (setSize < capacity) {
-            if (!isInSet(set, setSize, pages[i])) {
-                set[setSize] = pages[i];
-                timestamps[setSize] = time++;
-                setSize++;
-                page_faults++;
-            } else {
-                for (int j = 0; j < setSize; j++) {
-                    if (set[j] == pages[i]) {
-                        timestamps[j] = time++;
-                        break;
-                    }
-                }
-            }
+    int cqueue[numFrames], timestamps[numFrames], queuesize = 0, totalFaults = 0, time = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (!queuesize) {
+            printf("\nPage Request for %d -> Page Fault", refStrs[i]);
+            cqueue[queuesize] = refStrs[i];
+            timestamps[queuesize] = time++;
+            queuesize++;
+            totalFaults++;
         } else {
-            if (!isInSet(set, setSize, pages[i])) {
-                int pos = findLRU(timestamps, setSize);
-                set[pos] = pages[i];
-                timestamps[pos] = time++;
-                page_faults++;
+            if (!checkPresence(cqueue, queuesize, refStrs[i])) {
+                printf("\nPage Request for %d -> Page Fault", refStrs[i]);
+                if (queuesize < numFrames) {
+                    cqueue[queuesize] = refStrs[i];
+                    timestamps[queuesize] = time++;
+                    queuesize++;
+                } else {
+                    int replaceIndex = findLRU(timestamps, numFrames);
+                    cqueue[replaceIndex] = refStrs[i];
+                    timestamps[replaceIndex] = time++;
+                }
+                totalFaults++;
             } else {
-                for (int j = 0; j < setSize; j++) {
-                    if (set[j] == pages[i]) {
-                        timestamps[j] = time++;
+                printf("\nPage Request for %d -> Page Hit", refStrs[i]);
+                for (int j = 0; j < queuesize; j++) {
+                    if (cqueue[j] == refStrs[i]) {
+                        timestamps[j] = time++; 
                         break;
                     }
                 }
             }
         }
     }
-    return page_faults;
+    printf("\n\nTotal Page Faults Detected: %d\n\n", totalFaults);
 }
 
 int main() {
-    int n;
-    printf("Enter number of Pages: ");
-    scanf("%d", &n);
-    int pages[n];
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &pages[i]);
+    int numFrames, numStrings;
+    printf("\nEnter the number of frames and length of reference string : ");
+    scanf(" %d %d", &numFrames, &numStrings);
+    int refStrs[numStrings];
+    printf("\nEnter the value of the reference strings (Space Separated): ");
+    for (int i = 0; i < numStrings; i++) {
+        scanf(" %d", &refStrs[i]);
     }
-    int capacity = 4;
-    printf("Number of page faults using LRU: %d\n", pageFaults(pages, n, capacity));
+    LRU(refStrs, numStrings, numFrames);
     return 0;
 }

@@ -1,62 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
-bool isInSet(int *set, int size, int value) {
-    for (int i = 0; i < size; i++)
-        if (set[i] == value)
-            return true;
-    return false;
+int checkPresence(int cqueue[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (cqueue[i] == target) return 1;
+    }
+    return 0;
 }
 
-int predict(int pages[], int n, int set[], int setSize, int index) {
-    int farthest = -1, pos = -1;
-    for (int i = 0; i < setSize; i++) {
+int findOptimalReplacement(int cqueue[], int size, int refStrs[], int currentIndex, int totalPages) {
+    int farthest = -1, index = -1;
+    for (int i = 0; i < size; i++) {
         int j;
-        for (j = index; j < n; j++) {
-            if (set[i] == pages[j]) {
+        for (j = currentIndex + 1; j < totalPages; j++) {
+            if (cqueue[i] == refStrs[j]) {
                 if (j > farthest) {
                     farthest = j;
-                    pos = i;
+                    index = i;
                 }
                 break;
             }
         }
-        if (j == n)
-            return i;
+        if (j == totalPages) return i;
     }
-    return (pos == -1) ? 0 : pos;
+    return (index == -1) ? 0 : index;
 }
 
-int pageFaults(int pages[], int n, int capacity) {
-    int set[capacity], setSize = 0, page_faults = 0;
+void Optimal(int refStrs[], int size, int numFrames) {
+    printf("\nOptimal Page Replacement Algorithm :");
+    printf("\n-----------------------------------");
+    
+    int cqueue[numFrames], queuesize = 0, totalFaults = 0;
 
-    for (int i = 0; i < n; i++) {
-        if (setSize < capacity) {
-            if (!isInSet(set, setSize, pages[i])) {
-                set[setSize++] = pages[i];
-                page_faults++;
-            }
+    for (int i = 0; i < size; i++) {
+        if (!queuesize) {
+            printf("\nPage Request for %d -> Page Fault", refStrs[i]);
+            cqueue[queuesize++] = refStrs[i];
+            totalFaults++;
         } else {
-            if (!isInSet(set, setSize, pages[i])) {
-                int pos = predict(pages, n, set, setSize, i + 1);
-                set[pos] = pages[i];
-                page_faults++;
+            if (!checkPresence(cqueue, queuesize, refStrs[i])) {
+                printf("\nPage Request for %d -> Page Fault", refStrs[i]);
+                if (queuesize < numFrames) {
+                    cqueue[queuesize++] = refStrs[i];
+                } else {
+                    int replaceIndex = findOptimalReplacement(cqueue, numFrames, refStrs, i, size);
+                    cqueue[replaceIndex] = refStrs[i];
+                }
+                totalFaults++;
+            } else {
+                printf("\nPage Request for %d -> Page Hit", refStrs[i]);
             }
         }
     }
-    return page_faults;
+    printf("\n\nTotal Page Faults Detected: %d\n\n", totalFaults);
 }
 
 int main() {
-    int n;
-    printf("Enter number of Pages: ");
-    scanf("%d", &n);
-    int pages[n];
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &pages[i]);
+    int numFrames, numStrings;
+    printf("\nEnter the number of frames and length of reference string : ");
+    scanf(" %d %d", &numFrames, &numStrings);
+    int refStrs[numStrings];
+    printf("\nEnter the value of the reference strings (Space Separated): ");
+    for (int i = 0; i < numStrings; i++) {
+        scanf(" %d", &refStrs[i]);
     }
-    int capacity = 4;
-    printf("Number of page faults using Optimal Page Replacement: %d\n", pageFaults(pages, n, capacity));
+    Optimal(refStrs, numStrings, numFrames);
     return 0;
 }
