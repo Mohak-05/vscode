@@ -100,15 +100,18 @@ export const Rd = () => {
   ];
   return (
     <>
-        <div className = "cen">
-        <button
-            onClick={() => setjoke(jokes[Math.floor(Math.random() * jokes.length)])}>
+      <div className="cen">
+        <div className="cen2">
+          <button
+            onClick={() =>
+              setjoke(jokes[Math.floor(Math.random() * jokes.length)])
+            }
+          >
             Generate Random Joke :
-        </button>
+          </button>
+          <p>{randomJoke}</p>
         </div>
-        <div className = "cen">
-        <p>{randomJoke}</p>
-        </div>
+      </div>
     </>
   );
 };

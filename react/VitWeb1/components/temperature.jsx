@@ -34,8 +34,9 @@ export const Tc = () => {
         <option value="F">Fahrenheit</option>
       </select>
       <p>
-        Converted Temperature: {convertTemperature()}°
+        Converted Temperature: {convertTemperature()}
         {scale === "C" ? "F" : "C"}
+        
       </p>
     </div>
   );
