@@ -2,7 +2,7 @@ const Footer = () => {
   return (
     <footer className="foot">
       <p>
-        &copy; {new Date().getFullYear()} TheJokeCompany. All rights reserved.
+        &copy; {new Date().toDateString()} TheJokeCompany. All rights reserved.
       </p>
     </footer>
   );
